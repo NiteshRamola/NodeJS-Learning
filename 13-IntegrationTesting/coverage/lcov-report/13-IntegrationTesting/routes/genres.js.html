@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.71% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/35</span>
+                <span class='fraction'>35/35</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/10</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/33</span>
+                <span class='fraction'>33/33</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -139,37 +139,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -197,11 +197,11 @@ router.post("/", auth, async (req, res) =&gt; {
   res.send(genre);
 });
 &nbsp;
-router.put("/:id", validateObjectId, <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
-  const { error } = <span class="cstat-no" title="statement not covered" >validate(req.body);</span>
-<span class="cstat-no" title="statement not covered" >  if (error) <span class="cstat-no" title="statement not covered" >return res.status(400).send(error.details[0].message);</span></span>
+router.put("/:id", [validateObjectId, auth], async (req, res) =&gt; {
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 &nbsp;
-  const genre = <span class="cstat-no" title="statement not covered" >await Genre.findByIdAndUpdate(</span>
+  const genre = await Genre.findByIdAndUpdate(
     req.params.id,
     { name: req.body.name },
     {
@@ -209,26 +209,26 @@ router.put("/:id", validateObjectId, <span class="fstat-no" title="function not 
     }
   );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!genre)</span>
-<span class="cstat-no" title="statement not covered" >    return res.status(404).send("The genre with the given ID was not found.");</span>
+  if (!genre)
+    return res.status(404).send("The genre with the given ID was not found.");
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  res.send(genre);</span>
+  res.send(genre);
 });
 &nbsp;
-router.delete("/:id", [auth, isAdmin, validateObjectId], <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
-  const genre = <span class="cstat-no" title="statement not covered" >await Genre.findByIdAndRemove(req.params.id);</span>
+router.delete("/:id", [auth, isAdmin, validateObjectId], async (req, res) =&gt; {
+  const genre = await Genre.findByIdAndRemove(req.params.id);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!genre)</span>
-<span class="cstat-no" title="statement not covered" >    return res.status(404).send("The genre with the given ID was not found.");</span>
+  if (!genre)
+    return res.status(404).send("The genre with the given ID was not found.");
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  res.send(genre);</span>
+  res.send(genre);
 });
 &nbsp;
 router.get("/:id", validateObjectId, async (req, res) =&gt; {
   const genre = await Genre.findById(req.params.id);
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!genre)
-<span class="cstat-no" title="statement not covered" >    return res.status(404).send("The genre with the given ID was not found.");</span>
+  if (!genre)
+    return res.status(404).send("The genre with the given ID was not found.");
 &nbsp;
   res.send(genre);
 });
@@ -241,7 +241,7 @@ module.exports = router;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 20:00:10 GMT+0530 (India Standard Time)
+                at Sat Nov 13 2021 14:16:23 GMT+0530 (India Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
